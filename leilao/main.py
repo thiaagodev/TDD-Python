@@ -3,8 +3,8 @@ from dominio import Leilao, Lance, Usuario, Avaliador
 cleiton = Usuario('Cleiton')
 jorge = Usuario('Jorge')
 
-lance_do_cleiton = Lance(cleiton, 150)
 lance_do_jorge = Lance(jorge, 100)
+lance_do_cleiton = Lance(cleiton, 150)
 
 leilao = Leilao('Celular')
 
