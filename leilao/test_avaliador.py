@@ -19,8 +19,8 @@ class TestAvaliador(TestCase):
         jorge = Usuario('Jorge')
         lance_do_jorge = Lance(jorge, 100)
 
-        self.leilao.lances.append(self.lance_do_cleiton)
-        self.leilao.lances.append(lance_do_jorge)
+        self.leilao.propoe(self.lance_do_cleiton)
+        self.leilao.propoe(lance_do_jorge)
 
         
         avaliador = Avaliador()
@@ -36,8 +36,8 @@ class TestAvaliador(TestCase):
 
         lance_do_jorge = Lance(jorge, 100)
 
-        self.leilao.lances.append(lance_do_jorge)
-        self.leilao.lances.append(self.lance_do_cleiton)
+        self.leilao.propoe(lance_do_jorge)
+        self.leilao.propoe(self.lance_do_cleiton)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
@@ -67,9 +67,9 @@ class TestAvaliador(TestCase):
         lance_do_vini = Lance(vini, 300)
         lance_do_jorge = Lance(jorge, 200)
         
-        self.leilao.lances.append(self.lance_do_cleiton)
-        self.leilao.lances.append(lance_do_jorge)
-        self.leilao.lances.append(lance_do_vini)
+        self.leilao.propoe(self.lance_do_cleiton)
+        self.leilao.propoe(lance_do_jorge)
+        self.leilao.propoe(lance_do_vini)
 
         avaliador = Avaliador()
         avaliador.avalia(self.leilao)
