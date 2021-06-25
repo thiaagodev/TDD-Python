@@ -1,7 +1,7 @@
 import unittest
 from unittest import TestCase
 
-from dominio import Usuario, Lance, Leilao
+from leilao.dominio import Usuario, Lance, Leilao
 
 
 class TestLeilao(TestCase):
