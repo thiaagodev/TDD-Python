@@ -4,13 +4,13 @@ from unittest import TestCase
 from dominio import Usuario, Lance, Leilao
 
 
-class TestAvaliador(TestCase):
+class TestLeilao(TestCase):
 
     def setUp(self):
 
-        cleiton = Usuario('Cleiton')
+        self.cleiton = Usuario('Cleiton')
        
-        self.lance_do_cleiton = Lance(cleiton, 150)
+        self.lance_do_cleiton = Lance(self.cleiton, 150)
 
         self.leilao = Leilao('Celular')
 
@@ -65,6 +65,32 @@ class TestAvaliador(TestCase):
         maior_valor_esperado = 300
         self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
         self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
+
+    # se o leilão não tiver lances deve permitir propor um lance
+    def test_deve_permitir_porpor_lance_caso_o_leilao_nao_tenha_lances(self):
+        self.leilao.propoe(self.lance_do_cleiton)
+        
+        quantidade_de_lances = len(self.leilao.lances)
+        self.assertEqual(1, quantidade_de_lances)
+
+    # se o último usuario for diferente deve permitir propor um lance
+    def test_deve_permitir_propor_lance_caso_o_ultimo_usuario_seja_diferente(self):
+        jorge = Usuario('Jorge')
+        lance_do_jorge = Lance(jorge, 200)
+
+        self.leilao.propoe(self.lance_do_cleiton)
+        self.leilao.propoe(lance_do_jorge)
+
+        quantidade_lances = len(self.leilao.lances)
+        self.assertEqual(2, quantidade_lances)
+
+    # se o último usuario for o mesmo não deve permitir propor um lance
+    def test_nao_deve_permitir_propor_lance_caso_usuario_seja_o_mesmo(self):
+        lance_do_cleiton_200 = Lance(self.cleiton, 200)
+
+        with self.assertRaises(ValueError):
+            self.leilao.propoe(self.lance_do_cleiton)
+            self.leilao.propoe(lance_do_cleiton_200)
 
 
 unittest.main()
