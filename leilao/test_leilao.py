@@ -19,26 +19,22 @@ class TestLeilao(TestCase):
         jorge = Usuario('Jorge')
         lance_do_jorge = Lance(jorge, 100)
 
-        self.leilao.propoe(self.lance_do_cleiton)
         self.leilao.propoe(lance_do_jorge)
+        self.leilao.propoe(self.lance_do_cleiton)
 
         menor_valor_esperado = 100
         maior_valor_esperado = 150
         self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
         self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
-    def test_deve_retornar_o_maior_valor_de_um_lance_quando_adicionados_em_ordem_decrescente(self):
-        jorge = Usuario('Jorge')
+    def test_nao_deve_permitir_propor_um_lance_em_ordem_decrescente(self):
 
+        jorge = Usuario('Jorge')
         lance_do_jorge = Lance(jorge, 100)
 
-        self.leilao.propoe(lance_do_jorge)
-        self.leilao.propoe(self.lance_do_cleiton)
-
-        menor_valor_esperado = 100
-        maior_valor_esperado = 150
-        self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
-        self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
+        with self.assertRaises(ValueError):
+            self.leilao.propoe(self.lance_do_cleiton)
+            self.leilao.propoe(lance_do_jorge)
 
     def test_deve_retornar_o_mesmo_valor_para_o_maior_e_menor_lance_quando_leilao_tiver_um_lance(self):
 
