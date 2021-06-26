@@ -1,6 +1,7 @@
 import sys
 
 
+
 class Usuario:
 
     def __init__(self, nome):
@@ -41,5 +42,3 @@ class Leilao:
         return self.__lances[:]
 
 
-
-    
