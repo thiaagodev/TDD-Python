@@ -11,7 +11,7 @@ class TestLeilao(TestCase):
 
     def setUp(self):
 
-        self.cleiton = Usuario('Cleiton')
+        self.cleiton = Usuario('Cleiton', 500.00)
        
         self.lance_do_cleiton = Lance(self.cleiton, 150)
 
@@ -19,7 +19,7 @@ class TestLeilao(TestCase):
 
     def test_deve_retornar_o_maior_valor_de_um_lance_quando_adicionados_em_ordem_crescente(self):
 
-        jorge = Usuario('Jorge')
+        jorge = Usuario('Jorge', 500.00)
         lance_do_jorge = Lance(jorge, 100)
 
         self.leilao.propoe(lance_do_jorge)
@@ -32,7 +32,7 @@ class TestLeilao(TestCase):
 
     def test_nao_deve_permitir_propor_um_lance_em_ordem_decrescente(self):
 
-        jorge = Usuario('Jorge')
+        jorge = Usuario('Jorge', 500.00)
         lance_do_jorge = Lance(jorge, 100)
 
         with self.assertRaises(ValueError):
@@ -50,8 +50,8 @@ class TestLeilao(TestCase):
 
     def test_deve_retornar_o_maior_e_o_menor_valor_quando_o_leilao_tiver_tres_lances(self):
 
-        jorge = Usuario('Jorge')
-        vini = Usuario('Vini')
+        jorge = Usuario('Jorge', 500.00)
+        vini = Usuario('Vini', 500.00)
 
         lance_do_vini = Lance(vini, 300)
         lance_do_jorge = Lance(jorge, 200)
@@ -74,7 +74,7 @@ class TestLeilao(TestCase):
 
     # se o último usuario for diferente deve permitir propor um lance
     def test_deve_permitir_propor_lance_caso_o_ultimo_usuario_seja_diferente(self):
-        jorge = Usuario('Jorge')
+        jorge = Usuario('Jorge', 500.00)
         lance_do_jorge = Lance(jorge, 200)
 
         self.leilao.propoe(self.lance_do_cleiton)
@@ -90,6 +90,3 @@ class TestLeilao(TestCase):
         with self.assertRaises(ValueError):
             self.leilao.propoe(self.lance_do_cleiton)
             self.leilao.propoe(lance_do_cleiton_200)
-
-
-unittest.main()
