@@ -1,3 +1,9 @@
+import sys
+sys.path.append('')
+
+from leilao.exceptions import LanceInvalido
+
+
 class Usuario:
 
     def __init__(self, nome, carteira):
@@ -5,8 +11,8 @@ class Usuario:
         self.__carteira = carteira
 
     def propoe_lance(self, leilao, valor):
-        if self.__valor_e_valido(valor):
-            raise ValueError('Não pode propor um lance com valor maior que o da carteira')
+        if not self.__valor_e_valido(valor):
+            raise LanceInvalido('Não pode propor um lance com valor maior que o da carteira')
 
         lance = Lance(self, valor)
         leilao.propoe(lance)
@@ -14,7 +20,7 @@ class Usuario:
         self.__carteira -= valor
 
     def __valor_e_valido(self, valor):
-        return valor > self.__carteira
+        return valor <= self.__carteira
 
     @property
     def nome(self):
@@ -47,17 +53,19 @@ class Leilao:
             self.maior_lance = lance.valor
 
             self.__lances.append(lance)
-        else:
-            raise ValueError('Erro ao propor lance!')
 
     def __tem_lances(self):
         return self.__lances
 
     def __usuarios_diferentes(self, lance):
-        return self.lances[-1].usuario != lance.usuario
+        if self.lances[-1].usuario != lance.usuario:
+            return True
+        raise LanceInvalido('O usuário não pode fazer mais de um lance!')
 
     def __valor_maior_que_lance_anterior(self, lance):
-        return lance.valor > self.__lances[-1].valor
+        if lance.valor > self.__lances[-1].valor:
+            return True
+        raise LanceInvalido('O valor do lance deve ser maior que o valor do lance anterior!')
 
     def __lance_e_valido(self, lance):
         return not self.__tem_lances() or (self.__usuarios_diferentes(lance) and 

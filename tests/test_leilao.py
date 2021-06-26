@@ -1,10 +1,10 @@
 import sys
 sys.path.append('')
 
-import unittest
 from unittest import TestCase
 
 from leilao.dominio import Usuario, Lance, Leilao
+from leilao.exceptions import LanceInvalido
 
 
 class TestLeilao(TestCase):
@@ -35,7 +35,7 @@ class TestLeilao(TestCase):
         jorge = Usuario('Jorge', 500.00)
         lance_do_jorge = Lance(jorge, 100)
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LanceInvalido):
             self.leilao.propoe(self.lance_do_cleiton)
             self.leilao.propoe(lance_do_jorge)
 
@@ -87,6 +87,6 @@ class TestLeilao(TestCase):
     def test_nao_deve_permitir_propor_lance_caso_usuario_seja_o_mesmo(self):
         lance_do_cleiton_200 = Lance(self.cleiton, 200)
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LanceInvalido):
             self.leilao.propoe(self.lance_do_cleiton)
             self.leilao.propoe(lance_do_cleiton_200)

@@ -1,1 +1,2 @@
-from . import dominio
+from . import dominio 
+from . import exceptions
