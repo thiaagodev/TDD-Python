@@ -1,6 +1,6 @@
 # Testes Automatizados: TDD com Python
 
-Mais um curso da Alura, e dessa vez, aprendendo testes automatizados e como aplicar as técnicas de TDD com Python, utilizando a biblioteca built-in de testes do Python e a lib Pytest.
+Mais um curso da Alura, e dessa vez, aprendendo testes automatizados e como aplicar as técnicas de TDD com Python, utilizando a biblioteca built-in de testes do Python (unittest) e a lib Pytest.
 
 Tópicos do curso:
 - Descubra como testar aplicações em Python
